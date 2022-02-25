@@ -133,31 +133,34 @@ await baseQuestions2()
 //console.log(employee.getEmail())
 //console.log(employee.getRole())
 function createHTML(manager,engineer,intern){
-    const HTML = '<!DOCTYPE html><html lang="en">    <head>        <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge">  <meta name="viewport" content="width=device-width, initial-scale=1.0">        <title>Document</title>    </head>    <body>'
-    const managerdiv=`<div>/<div>`
-    const role=document.createElement("p")
-    role.innerHTML=manager.getRole()
-    managerdiv.appendChild(role)
-
-    const name=document.createElement("p")
-    name.innerHTML=manager.getName()
-    managerdiv.appendChild(name)
-    
-    const id=document.createElement("p")
-    id.innerHTML=manager.getId()
-    managerdiv.appendChild(id)
-    
-    const email=document.createElement("a")
-    email.innerHTML=manager.getEmail()
-    email.href=`mailto:${manager.email}`
-    managerdiv.appendChild(email)
-    
-    const number=document.createElement("p")
-    number.innerHTML=manager.officeNumber()
-    managerdiv.appendChild(number)
-
-
+    let HTML = `<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>`
+      const managerdiv=`<div class=employeeRow> <h2>${manager.name} </h2> <h3>${manager.getRole()} </h3>
+      <h2>${manager.id} </h2><a href="mailto:${manager.email} ">${manager.email} </a> <h2>${manager.officeNumber} </h2></div>`
+      let engineerdiv= ""
+      for (let i = 0; i <engineer.length; i++ ){ engineerdiv=engineerdiv + `<div class=employeeRow> <h2>${engineer[i].name} </h2> <h3>${engineer[i].getRole()} </h3>
+      <h2>${engineer[i].id} </h2><a href="mailto:${engineer[i].email} ">${engineer[i].email} </a> <br><a href = "https://github.com/${engineer[i].github} ">${engineer[i].github} </a></div>`}
+      let interndiv= ""
+      for (let i = 0; i<intern.length; i++ ){interndiv=interndiv + `<div class=employeeRow> <h2>${intern[i].name} </h2> <h3>${intern[i].getRole()} </h3>
+      <h2>${intern[i].id} </h2><a href="mailto:${intern[i].email} " >${intern[i].email}</a> <h2>${intern[i].school} </h2></div>`}
+     
+      let endHTML = `</body>
+      </html>`
+      HTML=HTML+managerdiv+engineerdiv+interndiv+endHTML
+     const fs = require('fs')
+     const iamsickofthisproject = HTML
+     fs.writeFile('./dist/index.html', iamsickofthisproject, err =>{
+         if (err) {
+             console.error(err)
+         }
+     } )
 }
 managerQs()
-
 
